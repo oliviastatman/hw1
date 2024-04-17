@@ -145,13 +145,31 @@ CREATE TABLE ensembles (
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
 INSERT INTO movies (title, year, rating, studio_id)
-    VALUES ("Batman Begins", 2005, "PG-13", "Warner Bros.");
-    VALUES ("The Dark Knight", 2008, "PG-13", "Warner Bros.");
-    VALUES ("The Dark Knight Rises", 2012, "PG-13", "Warner Bros.");
+    VALUES 
+        ("Batman Begins", 2005, "PG-13", "Warner Bros."),
+        ("The Dark Knight", 2008, "PG-13", "Warner Bros."),
+        ("The Dark Knight Rises", 2012, "PG-13", "Warner Bros.");
 
 INSERT INTO studios (name)
     VALUES ("Warner Bros.");
 
+INSERT INTO actors (movie_id,name, character)
+    VALUES 
+        (1,"Christian Bale", "Bruce Wayne"),
+        (1, "Michael Caine", "Alfred"),
+        (1, "Liam Neeson", "Ras Al Ghul"),
+        (1, "Katie Holmes","Rachel Dawes"),
+        (1,"Gary Oldman","Commissioner Gordon"),
+        (2,"Christian Bale","Bruce Wayne"),
+        (2,"Heath Ledger","Joker"),
+        (2,"Aaron Eckhart","Harvey Dent"),
+        (2,"Michael Caine","Alfred"),
+        (2,"Maggie Gyllenhaal","Rachel Dawes"),
+        (3,"Christian Bale", "Bruce Wayne"),
+        (3,"Gary Oldman","Commissioner Gordon"),
+        (3, "Tom Hardy","Bane"),
+        (3, "Joseph Gordon-Levitt","John Blake"),
+        (3, "Anne Hathaway","Selina Kyle");
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -159,8 +177,9 @@ INSERT INTO studios (name)
 .print ""
 
 -- The SQL statement for the movies output
--- TODO!
-SELECT * FROM movies;
+
+SELECT * FROM actors;
+
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
