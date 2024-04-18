@@ -133,8 +133,7 @@ CREATE TABLE studios (
 CREATE TABLE actors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    character TEXT, 
-    movie_id INTEGER); 
+    character TEXT); 
 
 CREATE TABLE ensembles (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -146,30 +145,45 @@ CREATE TABLE ensembles (
 -- TODO!
 INSERT INTO movies (title, year, rating, studio_id)
     VALUES 
-        ("Batman Begins", 2005, "PG-13", "Warner Bros."),
-        ("The Dark Knight", 2008, "PG-13", "Warner Bros."),
-        ("The Dark Knight Rises", 2012, "PG-13", "Warner Bros.");
+        ("Batman Begins", 2005, "PG-13", 1),
+        ("The Dark Knight", 2008, "PG-13", 1),
+        ("The Dark Knight Rises", 2012, "PG-13", 1);
 
 INSERT INTO studios (name)
     VALUES ("Warner Bros.");
 
-INSERT INTO actors (movie_id,name, character)
+INSERT INTO actors (name, character)
     VALUES 
-        (1,"Christian Bale", "Bruce Wayne"),
-        (1, "Michael Caine", "Alfred"),
-        (1, "Liam Neeson", "Ras Al Ghul"),
-        (1, "Katie Holmes","Rachel Dawes"),
-        (1,"Gary Oldman","Commissioner Gordon"),
-        (2,"Christian Bale","Bruce Wayne"),
-        (2,"Heath Ledger","Joker"),
-        (2,"Aaron Eckhart","Harvey Dent"),
-        (2,"Michael Caine","Alfred"),
-        (2,"Maggie Gyllenhaal","Rachel Dawes"),
-        (3,"Christian Bale", "Bruce Wayne"),
-        (3,"Gary Oldman","Commissioner Gordon"),
-        (3, "Tom Hardy","Bane"),
-        (3, "Joseph Gordon-Levitt","John Blake"),
-        (3, "Anne Hathaway","Selina Kyle");
+        ("Christian Bale", "Bruce Wayne"),
+        ("Michael Caine", "Alfred"),
+        ("Liam Neeson", "Ra's Al Ghul"),
+        ("Katie Holmes","Rachel Dawes"),
+        ("Gary Oldman","Commissioner Gordon"),
+        ("Heath Ledger","Joker"),
+        ("Aaron Eckhart","Harvey Dent"),
+        ("Maggie Gyllenhaal","Rachel Dawes"),
+        ("Tom Hardy","Bane"),
+        ("Joseph Gordon-Levitt","John Blake"),
+        ("Anne Hathaway","Selina Kyle");
+
+INSERT INTO ensembles (movie_id, actor_id)
+    VALUES
+        (1,1),
+        (1,2),
+        (1,3),
+        (1,4),
+        (1,5),
+        (2,1),
+        (2,6),
+        (2,7),
+        (2,2),
+        (2,8),
+        (3,1),
+        (3,5),
+        (3,9),
+        (3,10),
+        (3,11);
+
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -178,7 +192,9 @@ INSERT INTO actors (movie_id,name, character)
 
 -- The SQL statement for the movies output
 
-SELECT * FROM actors;
+SELECT movies.title, movies.year, movies.rating, studios.name
+FROM movies
+    INNER JOIN studios ON studios.id = movies.studio_id;
 
 -- Prints a header for the cast output
 .print ""
@@ -189,3 +205,8 @@ SELECT * FROM actors;
 
 -- The SQL statement for the cast output
 -- TODO!
+SELECT movies.title, actors.name, actors.character
+FROM ensembles
+    INNER JOIN movies ON movies.id = ensembles.movie_id
+    INNER JOIN actors ON actors.id = ensembles.actor_id
+ORDER BY movies.title;
